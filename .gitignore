@@ -1,3 +1,4 @@
 .idea
+.init
 .project
 docker-compose.yaml
