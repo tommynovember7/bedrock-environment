@@ -1,0 +1,158 @@
+version: '3.5'
+services:
+  mysql:
+    container_name: "wp-mysql"
+    build:
+      context: docker/mysql
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/.volumes/mysql:/var/lib/mysql
+      - ./docker/.volumes/log:/var/log
+      - ./docker/sql:/docker-entrypoint-initdb.d
+
+  bedrock:
+    container_name: "wp-bedrock"
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WP_ENV=${WP_ENV}
+      - WP_HOME=${WP_HOME}
+      - WP_SITEURL=${WP_SITEURL}
+      - AUTH_KEY=${AUTH_KEY}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - NONCE_KEY=${NONCE_KEY}
+      - AUTH_SALT=${AUTH_SALT}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_SALT=${NONCE_SALT}
+    depends_on:
+      - mysql
+    volumes:
+      - ./project:/var/project
+    working_dir: /var/project
+
+  php-cli:
+    container_name: "wp-php-cli"
+    build:
+      context: docker/php-cli
+      dockerfile: Dockerfile
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WP_ENV=${WP_ENV}
+      - WP_HOME=${WP_HOME}
+      - WP_SITEURL=${WP_SITEURL}
+      - AUTH_KEY=${AUTH_KEY}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - NONCE_KEY=${NONCE_KEY}
+      - AUTH_SALT=${AUTH_SALT}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_SALT=${NONCE_SALT}
+    volumes:
+      - ./project:/var/project
+    working_dir: /var/project
+    entrypoint: ['/usr/local/bin/php']
+
+  composer:
+    container_name: "wp-composer"
+    build:
+      context: docker/php-cli
+      dockerfile: Dockerfile
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WP_ENV=${WP_ENV}
+      - WP_HOME=${WP_HOME}
+      - WP_SITEURL=${WP_SITEURL}
+      - AUTH_KEY=${AUTH_KEY}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - NONCE_KEY=${NONCE_KEY}
+      - AUTH_SALT=${AUTH_SALT}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_SALT=${NONCE_SALT}
+    volumes:
+      - ./docker/.volumes/composer:/root/.composer
+      - ./project:/var/project
+    working_dir: /var/project
+    entrypoint: ['/usr/local/bin/composer.phar']
+
+  nginx:
+    container_name: "wp-nginx"
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - bedrock
+      - smtp
+    volumes:
+      - ./project:/var/project
+      - ./docker/.volumes/log:/var/log
+
+#  firebase:
+#    container_name: "wp-firebase"
+#    image: tommynovember7/docker-node:node12
+#    environment:
+#      - NODE_ENV=production
+#    volumes:
+#      - ./project/src/Frontend/assets/firebase:/var/project/firebase
+#      - ./project/src/Frontend/assets/js:/var/project/js
+#    working_dir: /var/project/firebase
+
+  node:
+    container_name: "wp-node12"
+    build:
+      context: docker/node
+      dockerfile: Dockerfile
+    volumes:
+      - ./project:/var/project
+    working_dir: /var/project
+
+  smtp:
+    container_name: "wp-smtp"
+    image: schickling/mailcatcher:latest
+
+  aws:
+    container_name: "wp-aws-cli"
+    image: tommynovember7/aws-cli:latest
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+    volumes:
+      - ./project:/var/project
+    working_dir: /var/project
+    entrypoint: ['/usr/local/bin/aws']
+
+  hadolint:
+    container_name: "wp-hadolint"
+    image: hadolint/hadolint:latest-debian
+    volumes:
+      - ./:/var/project
+    working_dir: /var/project
+    entrypoint: ['/bin/hadolint', '--config', './docker/hadolint.yaml']
