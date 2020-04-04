@@ -1,13 +1,13 @@
 FROM tommynovember7/docker-php:7.2
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libicu-dev=57.1-6+deb9u3 \
-    mailutils=1:3.1.1-1 \
-    python-pip=9.0.1-2+deb9u1 \
-    python-setuptools=33.1.1-1 \
-    ssmtp=2.64-8+b2 \
-    unzip=6.0-21+deb9u2 \
-    zlib1g-dev=1:1.2.8.dfsg-5 \
+    libicu-dev>=57.1-6+deb9u3 \
+    mailutils>=1:3.1.1-1 \
+    python-pip>=9.0.1-2+deb9u1 \
+    python-setuptools>=33.1.1-1 \
+    ssmtp>=2.64-8+b2 \
+    unzip>=6.0-21+deb9u2 \
+    zlib1g-dev>=1:1.2.8.dfsg-5 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

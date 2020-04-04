@@ -21,22 +21,22 @@ services:
       context: docker/php
       dockerfile: Dockerfile
     environment:
+      - AUTH_KEY=${AUTH_KEY}
+      - AUTH_SALT=${AUTH_SALT}
       - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_KEY=${NONCE_KEY}
+      - NONCE_SALT=${NONCE_SALT}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
       - WP_ENV=${WP_ENV}
       - WP_HOME=${WP_HOME}
       - WP_SITEURL=${WP_SITEURL}
-      - AUTH_KEY=${AUTH_KEY}
-      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
-      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
-      - NONCE_KEY=${NONCE_KEY}
-      - AUTH_SALT=${AUTH_SALT}
-      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
-      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
-      - NONCE_SALT=${NONCE_SALT}
     depends_on:
       - mysql
     volumes:
@@ -49,22 +49,22 @@ services:
       context: docker/php-cli
       dockerfile: Dockerfile
     environment:
+      - AUTH_KEY=${AUTH_KEY}
+      - AUTH_SALT=${AUTH_SALT}
       - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_KEY=${NONCE_KEY}
+      - NONCE_SALT=${NONCE_SALT}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
       - WP_ENV=${WP_ENV}
       - WP_HOME=${WP_HOME}
       - WP_SITEURL=${WP_SITEURL}
-      - AUTH_KEY=${AUTH_KEY}
-      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
-      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
-      - NONCE_KEY=${NONCE_KEY}
-      - AUTH_SALT=${AUTH_SALT}
-      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
-      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
-      - NONCE_SALT=${NONCE_SALT}
     volumes:
       - ./project:/var/project
     working_dir: /var/project
@@ -77,22 +77,22 @@ services:
       dockerfile: Dockerfile
     environment:
       - COMPOSER_ALLOW_SUPERUSER=1
+      - AUTH_KEY=${AUTH_KEY}
+      - AUTH_SALT=${AUTH_SALT}
       - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
+      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
+      - NONCE_KEY=${NONCE_KEY}
+      - NONCE_SALT=${NONCE_SALT}
+      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
+      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
       - WP_ENV=${WP_ENV}
       - WP_HOME=${WP_HOME}
       - WP_SITEURL=${WP_SITEURL}
-      - AUTH_KEY=${AUTH_KEY}
-      - SECURE_AUTH_KEY=${SECURE_AUTH_KEY}
-      - LOGGED_IN_KEY=${LOGGED_IN_KEY}
-      - NONCE_KEY=${NONCE_KEY}
-      - AUTH_SALT=${AUTH_SALT}
-      - SECURE_AUTH_SALT=${SECURE_AUTH_SALT}
-      - LOGGED_IN_SALT=${LOGGED_IN_SALT}
-      - NONCE_SALT=${NONCE_SALT}
     volumes:
       - ./docker/.volumes/composer:/root/.composer
       - ./project:/var/project
@@ -136,6 +136,8 @@ services:
   smtp:
     container_name: "wp-smtp"
     image: schickling/mailcatcher:latest
+    ports:
+      - "1080:1080"
 
   aws:
     container_name: "wp-aws-cli"
