@@ -19,7 +19,7 @@ server{
     location / {
         try_files $uri $uri/ /index.php$is_args$args;
     }
-    location /app/uploads/.*.php$ {
+    location ~ /app/uploads/.*.php$ {
         deny all;
     }
     location ~ \.php$ {
