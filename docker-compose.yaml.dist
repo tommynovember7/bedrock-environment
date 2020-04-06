@@ -91,7 +91,7 @@ services:
       - ./docker/.volumes/composer:/root/.composer
       - ./project:/var/project
     working_dir: /var/project
-    entrypoint: ['/usr/local/bin/composer.phar']
+    entrypoint: ['/usr/local/bin/composer']
 
   nginx:
     container_name: "wp-nginx"
