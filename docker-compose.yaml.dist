@@ -17,9 +17,7 @@ services:
 
   bedrock:
     container_name: "wp-bedrock"
-    build:
-      context: docker/php
-      dockerfile: Dockerfile
+    image: tommynovember7/wp5-host:7.4-fpm
     environment:
       - AUTH_KEY=${AUTH_KEY}
       - AUTH_SALT=${AUTH_SALT}
@@ -45,9 +43,7 @@ services:
 
   php-cli:
     container_name: "wp-php-cli"
-    build:
-      context: docker/php-cli
-      dockerfile: Dockerfile
+    image: tommynovember7/wp5-host:7.4-cli
     environment:
       - AUTH_KEY=${AUTH_KEY}
       - AUTH_SALT=${AUTH_SALT}
@@ -72,9 +68,7 @@ services:
 
   composer:
     container_name: "wp-composer"
-    build:
-      context: docker/php-cli
-      dockerfile: Dockerfile
+    image: tommynovember7/wp5-host:7.4-cli
     environment:
       - COMPOSER_ALLOW_SUPERUSER=1
       - AUTH_KEY=${AUTH_KEY}
