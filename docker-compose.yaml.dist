@@ -89,7 +89,7 @@ services:
       - WP_SITEURL=${WP_SITEURL}
     volumes:
       - ./docker/.volumes/composer:/root/.composer
-      - ./project:/var/project
+      - ./project/backend:/var/project
     working_dir: /var/project
     entrypoint: ['/usr/local/bin/composer']
 
