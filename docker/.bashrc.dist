@@ -26,19 +26,20 @@ export AWS_SECRET_ACCESS_KEY=
 export AWS_DEFAULT_REGION="ap-northeast-1"
 
 export DB_HOST=
-export DB_PORT=3306
 export DB_NAME=dev_wordpress
-export DB_USER=
 export DB_PASSWORD=
+export DB_PORT=3306
+export DB_USER=
+
 export WP_ENV=production
 export WP_HOME="https://wp.local"
 export WP_SITEURL="https://wp.local/wp"
 
 export AUTH_KEY='rfN|r:MJ!~u=<dh&CABBMOXq?m7Zj~xpTo?Q/2uS;N+{A- x0D;m5X>UW}WAwNr3'
-export SECURE_AUTH_KEY='VStr*{TxBO{quC+9,52]-b+d>VB>q@st*-~d99(fk5Z>M5IzfC64nXuW6OStDWKq'
-export LOGGED_IN_KEY=',0#I|f&VmOV`EWF4[3t;XX^F4-~Hs&$>Mh;#A/~%W5XfQI?C#CDwc]gV3H!6FYbv'
-export NONCE_KEY='PghLP2I~c2m/_8)?)`q6ViQb@&`m93.9R^ZP*1]-6jlNvRc*)-PY%ZG{N{RasbS8'
 export AUTH_SALT='^h(D%IKE> L-%T,YzZc;8Du^pRyS{RE2bCuq=XS* !5Z:#%S6OrM}C8x%-dRv-cJ'
-export SECURE_AUTH_SALT='#r2:.*$w*SoQ1bz/i:`p0;abJ^xcVZ0H0c*AvL4~YBN4rfF.3{K`->/LKp4Mx<bP'
+export LOGGED_IN_KEY=',0#I|f&VmOV`EWF4[3t;XX^F4-~Hs&$>Mh;#A/~%W5XfQI?C#CDwc]gV3H!6FYbv'
 export LOGGED_IN_SALT=';e!P+V?s6@biuQkB+Z[^Ye2m1tyAk#3ND!2We^eL-/MmX],9E:)`oxQDhLQ}v|HI'
+export NONCE_KEY='PghLP2I~c2m/_8)?)`q6ViQb@&`m93.9R^ZP*1]-6jlNvRc*)-PY%ZG{N{RasbS8'
 export NONCE_SALT='Ppe|hbyVVO.IjG-?6T4-]47 lbLWgh d5!2t2: CSR.[KI^1RAE;mA|QK|)OPUI5'
+export SECURE_AUTH_KEY='VStr*{TxBO{quC+9,52]-b+d>VB>q@st*-~d99(fk5Z>M5IzfC64nXuW6OStDWKq'
+export SECURE_AUTH_SALT='#r2:.*$w*SoQ1bz/i:`p0;abJ^xcVZ0H0c*AvL4~YBN4rfF.3{K`->/LKp4Mx<bP'
