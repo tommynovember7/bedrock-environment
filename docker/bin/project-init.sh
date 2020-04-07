@@ -23,7 +23,5 @@ sed "s/wp\.local/${SITE_NAME}.local/g" docker/.bashrc.dist | \
 sed "s/wp\.admin/${SITE_NAME}.admin/g" | tee docker/.bashrc | grep -n "${SITE_NAME}" && \
 printf "\nCreating 'docker-compose.yaml' \n\n" && \
 sed "s/wp-/${SITE_NAME}-/g" docker-compose.yaml.dist | tee docker-compose.yaml | grep -n "${SITE_NAME}" && \
-rm project/.gitignore && \
 git clone $1 project && \
-git update-index --skip-worktree project/.gitignore && \
 ls -la
