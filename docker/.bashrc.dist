@@ -25,15 +25,15 @@ export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
 export AWS_DEFAULT_REGION="ap-northeast-1"
 
-export DB_HOST=
+export DB_HOST=mysql
 export DB_NAME=dev_wordpress
 export DB_PASSWORD=
 export DB_PORT=3306
-export DB_USER=
+export DB_USER=root
 
-export WP_ENV=production
+export WP_ENV=development
 export WP_HOME="https://wp.local"
-export WP_SITEURL="https://wp.local/wp"
+export WP_SITEURL="https://wp.local"
 
 export AUTH_KEY='rfN|r:MJ!~u=<dh&CABBMOXq?m7Zj~xpTo?Q/2uS;N+{A- x0D;m5X>UW}WAwNr3'
 export AUTH_SALT='^h(D%IKE> L-%T,YzZc;8Du^pRyS{RE2bCuq=XS* !5Z:#%S6OrM}C8x%-dRv-cJ'
