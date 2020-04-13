@@ -19,6 +19,7 @@ services:
     container_name: "wp-bedrock"
     image: tommynovember7/wp5-host:7.4-fpm
     environment:
+      - ACF_PRO_KEY=${ACF_PRO_KEY}
       - AUTH_KEY=${AUTH_KEY}
       - AUTH_SALT=${AUTH_SALT}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
@@ -48,6 +49,7 @@ services:
     container_name: "wp-php-cli"
     image: tommynovember7/wp5-host:7.4-cli
     environment:
+      - ACF_PRO_KEY=${ACF_PRO_KEY}
       - AUTH_KEY=${AUTH_KEY}
       - AUTH_SALT=${AUTH_SALT}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
@@ -77,6 +79,7 @@ services:
     image: tommynovember7/wp5-host:7.4-cli
     environment:
       - COMPOSER_ALLOW_SUPERUSER=1
+      - ACF_PRO_KEY=${ACF_PRO_KEY}
       - AUTH_KEY=${AUTH_KEY}
       - AUTH_SALT=${AUTH_SALT}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
