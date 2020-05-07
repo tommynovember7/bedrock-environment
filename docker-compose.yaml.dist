@@ -144,23 +144,3 @@ services:
     image: schickling/mailcatcher:latest
     ports:
       - "1080:1080"
-
-  aws:
-    container_name: "wp-aws-cli"
-    image: tommynovember7/aws-cli:latest
-    environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
-    volumes:
-      - ./project:/var/project
-    working_dir: /var/project
-    entrypoint: ['/usr/local/bin/aws']
-
-  hadolint:
-    container_name: "wp-hadolint"
-    image: hadolint/hadolint:latest-debian
-    volumes:
-      - ./:/var/project
-    working_dir: /var/project
-    entrypoint: ['/bin/hadolint', '--config', './docker/hadolint.yaml']

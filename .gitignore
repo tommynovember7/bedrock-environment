@@ -1,5 +1,7 @@
 .idea
 .init
 .project
+.env
+.bashrc
 docker-compose.yaml
 project

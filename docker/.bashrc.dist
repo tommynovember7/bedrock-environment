@@ -1,8 +1,7 @@
 export PATH="./docker/bin:../docker/bin:../../docker/bin:$PATH"
 export PROJECT_ROOT="$PWD"
-#export NVM_DIR="$PWD/.nvm"
-#[[ -s "/usr/local/opt/nvm/nvm.sh" ]] && . "/usr/local/opt/nvm/nvm.sh"
-#[[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ]] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+# shellcheck source=.env
+source "${PROJECT_ROOT}"/docker/.env
 
 _exec() {
   [[ -z "$2" ]] && docker exec -it "$1" bash \
@@ -13,35 +12,12 @@ alias _ps="docker-compose ps"
 alias _run="docker-compose run --rm"
 alias _stop="docker-compose stop"
 alias _up="docker-compose up --detach --force-recreate --remove-orphans"
-alias no-start="docker-compose up --no-start --force-recreate --remove-orphans"
+alias _no-start="docker-compose up --no-start --force-recreate --remove-orphans"
 alias _mysql="mysql --host=0.0.0.0 --user=root --default-character-set=utf8mb4"
-alias hadolint="docker-compose run --rm hadolint"
-alias aws="docker-compose run --rm aws"
+
+alias aws='docker run --rm -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" -v "$(pwd):/aws" tommynovember7/aws-cli:latest'
+alias hadolint='docker run --rm -v "$(pwd):/tmp" -w /tmp --entrypoint /bin/hadolint hadolint/hadolint:latest-debian'
+
 alias php="docker-compose run --rm php-cli"
 alias node="docker-compose run --rm node"
 alias composer="docker-compose run --rm composer"
-
-export AWS_ACCESS_KEY_ID=
-export AWS_SECRET_ACCESS_KEY=
-export AWS_DEFAULT_REGION="ap-northeast-1"
-
-export DB_HOST=mysql
-export DB_NAME=dev_wordpress
-export DB_PASSWORD=
-export DB_PORT=3306
-export DB_USER=root
-
-export WP_ENV=development
-export WP_HOME="https://wp.local"
-export WP_SITEURL="https://wp.local"
-
-export AUTH_KEY='rfN|r:MJ!~u=<dh&CABBMOXq?m7Zj~xpTo?Q/2uS;N+{A- x0D;m5X>UW}WAwNr3'
-export AUTH_SALT='^h(D%IKE> L-%T,YzZc;8Du^pRyS{RE2bCuq=XS* !5Z:#%S6OrM}C8x%-dRv-cJ'
-export LOGGED_IN_KEY=',0#I|f&VmOV`EWF4[3t;XX^F4-~Hs&$>Mh;#A/~%W5XfQI?C#CDwc]gV3H!6FYbv'
-export LOGGED_IN_SALT=';e!P+V?s6@biuQkB+Z[^Ye2m1tyAk#3ND!2We^eL-/MmX],9E:)`oxQDhLQ}v|HI'
-export NONCE_KEY='PghLP2I~c2m/_8)?)`q6ViQb@&`m93.9R^ZP*1]-6jlNvRc*)-PY%ZG{N{RasbS8'
-export NONCE_SALT='Ppe|hbyVVO.IjG-?6T4-]47 lbLWgh d5!2t2: CSR.[KI^1RAE;mA|QK|)OPUI5'
-export SECURE_AUTH_KEY='VStr*{TxBO{quC+9,52]-b+d>VB>q@st*-~d99(fk5Z>M5IzfC64nXuW6OStDWKq'
-export SECURE_AUTH_SALT='#r2:.*$w*SoQ1bz/i:`p0;abJ^xcVZ0H0c*AvL4~YBN4rfF.3{K`->/LKp4Mx<bP'
-
-export ACF_PRO_KEY=
