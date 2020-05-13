@@ -5,3 +5,4 @@
 .bashrc
 docker-compose.yaml
 project
+/var
