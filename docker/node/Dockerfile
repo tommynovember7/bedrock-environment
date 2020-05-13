@@ -20,4 +20,8 @@ RUN apk --no-cache add \
     'zlib-dev>=1.2.11-r3'
 
 RUN npm install -g \
-    npm@latest
+    node-gyp \
+    nodemon \
+    npm@latest \
+    pm2 \
+    typescript
