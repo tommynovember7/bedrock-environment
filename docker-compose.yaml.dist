@@ -113,12 +113,43 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "9080:9080"
     depends_on:
       - bedrock
       - smtp
+      - nuxt
     volumes:
       - ./project:/var/project
       - ./docker/.volumes/log:/var/log
+
+  nuxt:
+    container_name: "wp-nuxt"
+    build:
+      context: docker/node
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./project/frontend:/var/project
+      - ./docker/.volumes/pm2:/root/.pm2
+    working_dir: /var/project
+    entrypoint: ["pm2-docker", "start", "ecosystem.config.js", "--only", "wired4.local"]
+
+  node:
+    container_name: "wp-node12"
+    build:
+      context: docker/node
+      dockerfile: Dockerfile
+    volumes:
+      - ./project/frontend:/var/project
+      - ./docker/.volumes/pm2:/root/.pm2
+    working_dir: /var/project
+
+  smtp:
+    container_name: "wp-smtp"
+    image: schickling/mailcatcher:latest
+    ports:
+      - "1080:1080"
 
 #  firebase:
 #    container_name: "wp-firebase"
@@ -129,18 +160,3 @@ services:
 #      - ./project/src/Frontend/assets/firebase:/var/project/firebase
 #      - ./project/src/Frontend/assets/js:/var/project/js
 #    working_dir: /var/project/firebase
-
-  node:
-    container_name: "wp-node12"
-    build:
-      context: docker/node
-      dockerfile: Dockerfile
-    volumes:
-      - ./project:/var/project
-    working_dir: /var/project
-
-  smtp:
-    container_name: "wp-smtp"
-    image: schickling/mailcatcher:latest
-    ports:
-      - "1080:1080"
