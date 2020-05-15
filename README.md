@@ -25,16 +25,18 @@ brew install mkcert
 brew install nss # if you use Firefox 
 ```
 
-The setup script can takes two arguments:
+The setup script can take three arguments:
 
-- Git Repository Path 
-- Site Name (optional)
+- `<repo>`: Git Repository Path, E.g. `git@github.com:***/***.git`
+- `<site>`: Site Name (optional)
+- `<acf>`: ACF PRO License Key (optional)
 
 ```bash
-./docker/bin/project-init.sh git@github.com:***/***.git %SITE_NAME%
+./docker/bin/project-init.sh <repo> <site> <acf>
 ```
 
-The source code from the Git repository will clone into `project` directory.
+The script will clone the project source code from the Git repository 
+into  `project` directory.
 
 If you don't give a site name to the project, it takes `wp` as default.
 The site name will be used as a part of the site URL. 
@@ -42,7 +44,7 @@ The site name will be used as a part of the site URL.
 ### Prepare environment variables
 
 The `docker/.bashrc` file contains all the required environment variables.
-I strongly recommend to edit it as you like before running the containers. 
+I recommend editing it as you like before running the containers. 
 
 ```bash
 source docker/.bashrc
