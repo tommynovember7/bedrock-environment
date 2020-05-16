@@ -16,13 +16,12 @@ else
 fi
 create_cert () {
   mkcert -cert-file docker/nginx/ssl/cert.pem -key-file docker/nginx/ssl/key.pem \
-  "$1.local" "$1.admin" mailcatcher.local nginx mysql localhost 127.0.0.1 0.0.0.0
+  "$1.local" mailcatcher.local nginx mysql localhost 127.0.0.1 0.0.0.0
 }
 
 create_cert ${SITE_NAME} && \
 printf "\nCreating 'project.conf' into docker/nginx/: \n\n" && \
-sed "s/wp\.local/${SITE_NAME}.local/g" docker/nginx/project.conf.dist | \
-sed "s/wp\.admin/${SITE_NAME}.admin/g" | tee docker/nginx/project.conf | grep -n "${SITE_NAME}" && \
+sed "s/wp\.local/${SITE_NAME}.local/g" docker/nginx/project.conf.dist | tee docker/nginx/project.conf | grep -n "${SITE_NAME}" && \
 printf "\nCreating '.bashrc' into docker/: \n" && \
 cat docker/.bashrc.dist > docker/.bashrc && \
 printf "\nCreating '.env' into docker/: \n\n" && \
