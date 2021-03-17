@@ -22,6 +22,5 @@ RUN apk --no-cache add \
 RUN npm install -g \
     node-gyp \
     nodemon \
-    npm@latest \
     pm2 \
     typescript
